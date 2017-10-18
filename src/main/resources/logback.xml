@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [%t] --- %-40.40logger{39} : %m%n"/>
+    <property name="LOG_FILE" value="/tmp/web-app.log"/>
+    <appender name="ES" class="ir.hafiz.logger.ESLogger">
+    </appender>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+        <file>${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${LOG_FILE}.%i</fileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>100MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+    <logger name="ir.hafiz.esutils" level="ERROR" additivity="false">
+        <appender-ref ref="ES"/>
+       <!-- <appender-ref ref="FILE"/>-->
+       <!-- <appender-ref ref="CONSOLE"/>-->
+    </logger>
+
+
+  <!--
+  this root lets Embedded container and Spring internal exceptions to be logged but is commented right now.
+    -->
+  <root level="ERROR">
+    <appender-ref ref="FILE"/>
+    <!--<appender-ref ref="CONSOLE"/>-->
+  </root>
+</configuration>
