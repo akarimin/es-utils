@@ -69,7 +69,7 @@ public final class OperationBuilder {
 
     public String getEsIndex() throws Exception {
         if(Objects.isNull(ES_INDEX))
-            setEsIndex()
+            setEsIndex();
         return ES_INDEX;
     }
 
