@@ -18,10 +18,10 @@ import static edu.akarimin.esutils.commons.ESConnector.getClient;
 public final class OperationBuilder {
 
     private static OperationBuilder INSTANCE = new OperationBuilder();
-    private static String ES_SERVER = System.getProperty("hafiz.ibank.elastic.host");
-    private static String ES_PORT = System.getProperty("hafiz.ibank.elastic.port");
-    static String ES_CLUSTER = System.getProperty("hafiz.ibank.elastic.cluster");
-    private static String ES_INDEX = System.getProperty("hafiz.ibank.elastic.index");
+    private static String ES_SERVER = System.getProperty("elastic.host");
+    private static String ES_PORT = System.getProperty("elastic.port");
+    static String ES_CLUSTER = System.getProperty("elastic.cluster");
+    private static String ES_INDEX = System.getProperty("elastic.index");
 
     public static OperationBuilder initialize() {
         return INSTANCE;
