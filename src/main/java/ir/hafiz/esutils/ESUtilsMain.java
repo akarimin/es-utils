@@ -1,6 +1,6 @@
 package ir.hafiz.esutils;
 
-import ir.hafiz.esutils.commons.ESDetector;
+import ir.hafiz.esutils.tools.FlowDecider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,8 +16,8 @@ public class ESUtilsMain {
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(new Object[]{ESUtilsMain.class}, args);
-        ESDetector.detectESNode();
-        System.out.println("Reindex Job Done.");
+        FlowDecider.flowOperations();
+        System.out.println("---------------------------------------END OF MAIN---------------------------------------");
     }
 
 }

@@ -1,88 +1,94 @@
 package ir.hafiz.esutils.tools;
 
-import ir.hafiz.esutils.commons.ESConnector;
-import ir.hafiz.esutils.commons.ESDetector;
-import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.cluster.health.ClusterHealthStatus;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import ir.hafiz.esutils.commons.*;
+import ir.hafiz.esutils.model.TransactionMonitoringModel;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.common.xcontent.*;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.reindex.ReindexAction;
-import org.elasticsearch.index.reindex.ReindexPlugin;
 import org.elasticsearch.index.reindex.ReindexRequestBuilder;
-import org.elasticsearch.transport.client.PreBuiltTransportClient;
 
-import java.net.InetAddress;
+import java.util.Scanner;
+
+import static ir.hafiz.esutils.commons.ESConnector.getClient;
 
 
 /**
  * Created by akarimin on 10/17/17.
  */
-public class ESOperations {
+public final class ESOperations {
 
-    private static String ES_CLUSTER = System.getProperty("hafiz.ibank.elastic.cluster");
+    private static ESOperations INSTANCE = new ESOperations();
+    private static String NEW_INDEX_NAME;
 
-    private static Settings settingsBuilder() {
-        return Settings.builder()
-                .put("index.number_of_shards", 15)
-                .put("index.number_of_replicas", 1)
-                .build();
+    static ESOperations prepareOperation() {
+        return INSTANCE;
     }
 
-    public static String[] fetchIndexNames() {
-        return ESConnector.getElasticClient()
-                .admin()
-                .cluster()
-                .prepareState()
-                .execute()
-                .actionGet()
-                .getState()
-                .getMetaData()
-                .getConcreteAllIndices();
-    }
-
-
-    public String dumpOnFile() {
-        return null;
-    }
-
-
-    public String reindex(String oldIndexName, String newIndexName) throws Exception {
-        TransportClient client = new PreBuiltTransportClient(settingsBuilder())
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(ESDetector.getEsServer()), 9300))
-                .addPlugin(ReindexPlugin.class).build();
+    ESOperations reindex() throws Exception {
         ReindexRequestBuilder builder = ReindexAction.INSTANCE
-                .newRequestBuilder(client)
-                .source(oldIndex)
-                .destination(newIndex);
-        builder.destination().setOpType(opType);
+                .newRequestBuilder(getClient())
+                .source(OperationBuilder.initialize().getEsIndex())
+                .destination(NEW_INDEX_NAME);
+        builder.destination().setOpType(IndexRequest.OpType.CREATE);
         builder.abortOnVersionConflict(false);
+        builder.refresh(true);
         builder.get();
-
-
-        return null;
+        System.out.println("---------------------------------REINDEX DONE--------------------------------------------");
+        return this;
     }
 
-    public static void checkNodeStatus() throws InterruptedException {
-        ClusterHealthResponse healths = ESConnector.getElasticClient()
-                .admin()
-                .cluster()
-                .prepareHealth()
+    ESOperations setMapping() throws Exception {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("########################################################################################\n" +
+                "Please enter your new INDEX NAME:\t");
+        NEW_INDEX_NAME = scanner.nextLine();
+        String content = FileManager.readMappingFile(FileManager.getMappingFilePath());
+        XContentBuilder builder = XContentFactory.jsonBuilder().prettyPrint();
+        try (XContentParser parser = XContentFactory.xContent(XContentType.JSON)
+                .createParser(NamedXContentRegistry.EMPTY, content.getBytes())) {
+            builder.copyCurrentStructure(parser);
+        }
+        getClient().admin().indices()
+                .prepareCreate(NEW_INDEX_NAME)
+                .setSource(builder.string())
                 .get();
-        ES_CLUSTER = healths.getClusterName();
-        ClusterHealthStatus status = healths.getStatus();
-        int numberOfNodes = healths.getNumberOfNodes();
-        System.out.println("PINGING ... ");
-        Thread.sleep(5000L);
-        System.out.printf("----------------------------------------------------------------------------------------\n" +
-                        "CLUSTER-NAME: [%s] \t STATUS: [%s]\t NUMBER OF DATA NODES: [%s]\n" +
-                        "----------------------------------------------------------------------------------------\n",
-                ES_CLUSTER, status, numberOfNodes);
 
+        System.out.println("---------------------------------MAPPING CREATED-----------------------------------------");
+        return this;
     }
 
-    public static String getClusterName(){
-        return ES_CLUSTER;
+
+    ESOperations indexTransaction() {
+        try {
+            SearchResponse response = getClient().prepareSearch(NEW_INDEX_NAME)
+                    .setTypes("log")
+                    .setQuery(QueryBuilders.matchPhraseQuery("cif", "1439"))
+                    .execute()
+                    .get();
+            if (response.getHits().getTotalHits() != 0) {
+                TransactionMonitoringModel fetched = JacksonMapperConfig.getObjectMapper().readValue(JacksonMapperConfig
+                        .getObjectMapper().writeValueAsBytes(response.getHits().getHits()[0]), TransactionMonitoringModel.class);
+                System.out.println("---->>>>>" + JacksonMapperConfig.getObjectMapper().writeValueAsString(fetched));
+            }
+            return this;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public ESOperations dumpOnFile() {
+        //TODO: Develop
+        return this;
+    }
+
+    ESOperations then() {
+        return this;
+    }
+
+    private ESOperations() {
+
     }
 }
