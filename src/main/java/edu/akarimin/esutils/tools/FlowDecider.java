@@ -10,7 +10,7 @@ public class FlowDecider {
 
     public static void flowOperations() throws Exception {
 
-        OperationBuilderResponse decider = OperationBuilder.prepareServer()
+        OperationBuilderResponse decider = OperationBuilder.prepareNode()
                 .setEsServer()
                 .then()
                 .setEsPort()
