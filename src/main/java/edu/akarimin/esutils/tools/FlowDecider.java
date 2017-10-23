@@ -10,7 +10,7 @@ public class FlowDecider {
 
     public static void flowOperations() throws Exception {
 
-        OperationBuilderResponse decider = OperationBuilder.initialize()
+        OperationBuilderResponse decider = OperationBuilder.prepareServer()
                 .setEsServer()
                 .then()
                 .setEsPort()
@@ -20,6 +20,7 @@ public class FlowDecider {
                 .setEsIndex()
                 .then()
                 .displayConfig()
+                .then()
                 .decide();
 
         switch (decider.getOperation().keySet().iterator().next()) {

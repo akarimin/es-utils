@@ -23,7 +23,7 @@ public final class OperationBuilder {
     private static String ES_CLUSTER = System.getProperty("elastic.cluster");
     private static String ES_INDEX = System.getProperty("elastic.index");
 
-    public static OperationBuilder initialize() {
+    public static OperationBuilder prepareServer() {
         return INSTANCE;
     }
 
