@@ -1,4 +1,4 @@
-package ir.hafiz.esutils.commons;
+package edu.akarimin.esutils.commons;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,12 +7,12 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
- * Created by akarimin on 9/6/17.
+ * @author akarimin on 9/6/17.
  */
 
 /***********************************************************************************************************************
  *  In order to avoid boilerplate code while using Builder pattern, take GenericBuilder for granted.
- *  e.g.:
+ *  @example:
  *   Person value = GenericBuilder.of(Person::new).with(Person::setName, "Ali").with(Person::setAge, 35).build();
  **********************************************************************************************************************/
 public class GenericBuilder<T> {

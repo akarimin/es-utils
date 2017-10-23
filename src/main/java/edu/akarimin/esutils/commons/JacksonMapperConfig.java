@@ -1,4 +1,4 @@
-package ir.hafiz.esutils.commons;
+package edu.akarimin.esutils.commons;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,7 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 /**
- * Created by amir amirhoshangi@gmail.com
+ * @author akarimin
  */
 public class JacksonMapperConfig {
 

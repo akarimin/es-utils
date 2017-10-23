@@ -1,4 +1,4 @@
-package ir.hafiz.esutils.commons;
+package edu.akarimin.esutils.commons;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 
 /**
- * Created by akarimin on 10/17/17.
+ * @author akarimin on 10/17/17.
  */
 public class FileManager {
 

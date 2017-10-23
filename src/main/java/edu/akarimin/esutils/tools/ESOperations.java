@@ -1,7 +1,9 @@
-package ir.hafiz.esutils.tools;
+package edu.akarimin.esutils.tools;
 
-import ir.hafiz.esutils.commons.*;
-import ir.hafiz.esutils.model.TransactionMonitoringModel;
+import edu.akarimin.esutils.commons.ESConnector;
+import edu.akarimin.esutils.commons.FileManager;
+import edu.akarimin.esutils.commons.JacksonMapperConfig;
+import edu.akarimin.esutils.model.TransactionMonitoringModel;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.xcontent.*;
@@ -11,11 +13,9 @@ import org.elasticsearch.index.reindex.ReindexRequestBuilder;
 
 import java.util.Scanner;
 
-import static ir.hafiz.esutils.commons.ESConnector.getClient;
-
 
 /**
- * Created by akarimin on 10/17/17.
+ * @author akarimin on 10/17/17.
  */
 public final class ESOperations {
 
@@ -28,7 +28,7 @@ public final class ESOperations {
 
     ESOperations reindex() throws Exception {
         ReindexRequestBuilder builder = ReindexAction.INSTANCE
-                .newRequestBuilder(getClient())
+                .newRequestBuilder(ESConnector.getClient())
                 .source(OperationBuilder.initialize().getEsIndex())
                 .destination(NEW_INDEX_NAME);
         builder.destination().setOpType(IndexRequest.OpType.CREATE);
@@ -50,7 +50,7 @@ public final class ESOperations {
                 .createParser(NamedXContentRegistry.EMPTY, content.getBytes())) {
             builder.copyCurrentStructure(parser);
         }
-        getClient().admin().indices()
+        ESConnector.getClient().admin().indices()
                 .prepareCreate(NEW_INDEX_NAME)
                 .setSource(builder.string())
                 .get();
@@ -62,7 +62,7 @@ public final class ESOperations {
 
     ESOperations indexTransaction() {
         try {
-            SearchResponse response = getClient().prepareSearch(NEW_INDEX_NAME)
+            SearchResponse response = ESConnector.getClient().prepareSearch(NEW_INDEX_NAME)
                     .setTypes("log")
                     .setQuery(QueryBuilders.matchPhraseQuery("cif", "1439"))
                     .execute()

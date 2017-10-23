@@ -4,14 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ir.hafiz</groupId>
+    <groupId>edu.akarimin</groupId>
     <artifactId>es-utils</artifactId>
     <version>0.1.0-SNAPSHOT</version>
 
     <properties>
         <java.version>1.8</java.version>
         <spring.boot.version>1.4.2.RELEASE</spring.boot.version>
-        <log.api.version>0.9.0-RELEASE</log.api.version>
         <spring.version>4.3.4.RELEASE</spring.version>
         <log4j>2.7</log4j>
         <jackson.version>2.8.6</jackson.version>
@@ -162,14 +161,6 @@
             <version>55.1</version>
         </dependency>
 
-        <!--############################################### Logger ################################################# -->
-
-        <dependency>
-            <groupId>ir.hafiz</groupId>
-            <artifactId>log-api</artifactId>
-            <version>${log.api.version}</version>
-        </dependency>
-
         <!--#######################################  for elasticSearch 5.2.2  ###################################    -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -226,7 +217,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>ir.hafiz.esutils.ESUtilsMain</mainClass>
+                    <mainClass>edu.akarimin.esutils.ESUtilsMain</mainClass>
                 </configuration>
             </plugin>
         </plugins>

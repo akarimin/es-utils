@@ -1,7 +1,7 @@
-package ir.hafiz.esutils.commons;
+package edu.akarimin.esutils.tools;
 
-import ir.hafiz.esutils.model.OperationBuilderResponse;
-import ir.hafiz.esutils.model.Operations;
+import edu.akarimin.esutils.model.OperationBuilderResponse;
+import edu.akarimin.esutils.model.Operations;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
 import org.elasticsearch.cluster.health.ClusterHealthStatus;
 import java.util.HashMap;
@@ -10,10 +10,10 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
-import static ir.hafiz.esutils.commons.ESConnector.getClient;
+import static edu.akarimin.esutils.commons.ESConnector.getClient;
 
 /**
- * Created by akarimin on 10/23/17.
+ * @author akarimin on 10/23/17.
  */
 public final class OperationBuilder {
 
