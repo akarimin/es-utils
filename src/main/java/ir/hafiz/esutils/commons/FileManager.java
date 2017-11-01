@@ -12,6 +12,7 @@ import java.util.Scanner;
 public class FileManager {
 
     private static String FILE_PATH = System.getProperty("json.path");
+    private static String CONTENT;
 
     public static String getMappingFilePath() {
         Scanner scanner = new Scanner(System.in);
@@ -24,7 +25,11 @@ public class FileManager {
 
     public static String readMappingFile(String filePath) throws IOException {
         System.out.println("---------------------------------MAPPING FILE READ--------------------------------------");
-        String content = new String(Files.readAllBytes(Paths.get(filePath)));
-        return content;
+        CONTENT = new String(Files.readAllBytes(Paths.get(filePath)));
+        return CONTENT;
+    }
+
+    public static String getContent(){
+        return CONTENT;
     }
 }

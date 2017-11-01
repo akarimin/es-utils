@@ -11,7 +11,7 @@ public class FlowDecider {
 
     public static void flowOperations() throws Exception {
 
-        OperationBuilderResponse decider = OperationBuilder.initialize()
+        OperationBuilderResponse decider = OperationBuilder.prepareNode()
                 .setEsServer()
                 .then()
                 .setEsPort()
@@ -26,11 +26,12 @@ public class FlowDecider {
         switch (decider.getOperation().keySet().iterator().next()) {
             case 0:
                 ESOperations.prepareOperation()
-                        .setMapping()
+                        .getMappingOrSelfReindex()
                         .then()
-                        .reindex()
+                        .unequalNameReindex()
                         .then()
-                        .indexTransaction();
+                        .indexTransaction()
+                        .done();
                 //TODO: Ask for Deleting Index
                 break;
             default:

@@ -2,8 +2,6 @@
 <configuration>
     <property name="CONSOLE_LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [%t] --- %-40.40logger{39} : %m%n"/>
     <property name="LOG_FILE" value="/tmp/web-app.log"/>
-    <appender name="ES" class="ir.hafiz.logger.ESLogger">
-    </appender>
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
@@ -25,8 +23,8 @@
         </triggeringPolicy>
     </appender>
     <logger name="ir.hafiz.esutils" level="ERROR" additivity="false">
-        <appender-ref ref="ES"/>
-       <!-- <appender-ref ref="FILE"/>-->
+        <!--<appender-ref ref="ES"/>-->
+        <!--<appender-ref ref="FILE"/>-->
        <!-- <appender-ref ref="CONSOLE"/>-->
     </logger>
 

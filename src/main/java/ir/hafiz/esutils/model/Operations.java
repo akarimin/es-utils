@@ -6,6 +6,6 @@ package ir.hafiz.esutils.model;
 public enum Operations {
     REINDEX,
     DUMP,
-    PARTIAL_MAPPING_UPDATE,
-    DELETE_INDEX;
+    IMPORT_FROM_FILE,
+    PARTIAL_MAPPING_UPDATE
 }

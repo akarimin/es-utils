@@ -3,7 +3,9 @@ package ir.hafiz.esutils.commons;
 import ir.hafiz.esutils.model.OperationBuilderResponse;
 import ir.hafiz.esutils.model.Operations;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
+import org.elasticsearch.client.transport.NoNodeAvailableException;
 import org.elasticsearch.cluster.health.ClusterHealthStatus;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -20,10 +22,10 @@ public final class OperationBuilder {
     private static OperationBuilder INSTANCE = new OperationBuilder();
     private static String ES_SERVER = System.getProperty("hafiz.ibank.elastic.host");
     private static String ES_PORT = System.getProperty("hafiz.ibank.elastic.port");
-    static String ES_CLUSTER = System.getProperty("hafiz.ibank.elastic.cluster");
+    private static String ES_CLUSTER = System.getProperty("hafiz.ibank.elastic.cluster");
     private static String ES_INDEX = System.getProperty("hafiz.ibank.elastic.index");
 
-    public static OperationBuilder initialize() {
+    public static OperationBuilder prepareNode() {
         return INSTANCE;
     }
 
@@ -44,10 +46,7 @@ public final class OperationBuilder {
     }
 
     public OperationBuilder setEsServer() throws Exception {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("#######################################---HOST---#####################################\n" +
-                "Please enter your Elasticsearch host:\t");
-        ES_SERVER = scanner.nextLine();
+        ES_SERVER = (String) ScannerUtil.fetchconsoleInput("HOST", "Please enter your Elasticsearch host:\t");
         return this;
     }
 
@@ -58,10 +57,7 @@ public final class OperationBuilder {
     }
 
     public OperationBuilder setEsPort() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("#######################################---PORT---#####################################\n" +
-                "Please enter your Elasticsearch port:\t");
-        ES_PORT = scanner.nextLine();
+        ES_PORT = (String) ScannerUtil.fetchconsoleInput("PORT", "Please enter your Elasticsearch port:\t");
         return this;
     }
 
@@ -74,17 +70,15 @@ public final class OperationBuilder {
         System.out.println("##################################---INDICES---#######################################");
         IntStream.range(0, indices.length)
                 .forEach(i -> System.out.println("[" + i + "] : [" + indices[i] + "]"));
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("########################################################################################\n" +
-                "Please enter your Elasticsearch index NUMBER:\t");
-        int indexNum = scanner.nextInt();
+        int indexNum = 0;
+
+        indexNum = Integer.valueOf((String) ScannerUtil.fetchconsoleInput("",
+                "Please enter your Elasticsearch index NUMBER:\t"));
+
         if (indexNum < 0 || indexNum > indices.length) {
-            System.out.print("########################################################################################\n" +
-                    "Number out of range. Please enter your Elasticsearch index NUMBER:\t");
-            indexNum = scanner.nextInt();
+            indexNum = Integer.valueOf((String) ScannerUtil.fetchconsoleInput("",
+                    "Number out of range. Please enter your Elasticsearch index NUMBER:\t"));
             if (indexNum < 0 || indexNum > indices.length) {
-                System.out.print("########################################################################################\n" +
-                        "<--BYE-->");
                 System.exit(1);
             }
         }
@@ -93,20 +87,26 @@ public final class OperationBuilder {
     }
 
     public OperationBuilder checkNodeStatus() throws Exception {
-        ClusterHealthResponse healths = getClient()
-                .admin()
-                .cluster()
-                .prepareHealth()
-                .get();
-        ES_CLUSTER = healths.getClusterName();
-        ClusterHealthStatus status = healths.getStatus();
-        int numberOfNodes = healths.getNumberOfNodes();
-        System.out.println("Pinging ... ");
-        Thread.sleep(3000L);
-        System.out.printf("--------------------------------------------------------------------------------------\n" +
-                        "CLUSTER-NAME: [%s] \t STATUS: [%s]\t NUMBER OF DATA NODES: [%s]\n" +
-                        "--------------------------------------------------------------------------------------\n",
-                ES_CLUSTER, status, numberOfNodes);
+        try {
+            ClusterHealthResponse healths = getClient()
+                    .admin()
+                    .cluster()
+                    .prepareHealth()
+                    .get();
+            ES_CLUSTER = healths.getClusterName();
+            ClusterHealthStatus status = healths.getStatus();
+            int numberOfNodes = healths.getNumberOfNodes();
+            System.out.println("Pinging ... ");
+            Thread.sleep(3000L);
+            System.out.printf("--------------------------------------------------------------------------------------\n" +
+                            "CLUSTER-NAME: [%s] \t STATUS: [%s]\t NUMBER OF DATA NODES: [%s]\n" +
+                            "--------------------------------------------------------------------------------------\n",
+                    ES_CLUSTER, status, numberOfNodes);
+        } catch (Exception e) {
+            if (e instanceof NoNodeAvailableException)
+                System.out.println("Node not found !");
+            System.exit(1);
+        }
         return this;
     }
 
@@ -135,7 +135,6 @@ public final class OperationBuilder {
         response.setOperation(decision);
         return response;
     }
-
 
 
     private OperationBuilder() {

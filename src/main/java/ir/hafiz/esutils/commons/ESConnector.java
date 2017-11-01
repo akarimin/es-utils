@@ -1,6 +1,5 @@
 package ir.hafiz.esutils.commons;
 
-import ir.hafiz.esutils.tools.ESOperations;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
@@ -18,7 +17,7 @@ public class ESConnector {
                 .put("cluster.name", "internetbank-cluster")
                 .build()))
                 .addTransportAddress(new InetSocketTransportAddress(InetAddress
-                        .getByName(OperationBuilder.initialize().getEsServer()),
-                        Integer.valueOf(OperationBuilder.initialize().getEsPort())));
+                        .getByName(OperationBuilder.prepareNode().getEsServer()),
+                        Integer.valueOf(OperationBuilder.prepareNode().getEsPort())));
     }
 }
