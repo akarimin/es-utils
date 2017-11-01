@@ -1,17 +1,16 @@
-package ir.hafiz.esutils.tools;
+package edu.akarimin.esutils.tools;
 
-import ir.hafiz.esutils.commons.OperationBuilder;
-import ir.hafiz.esutils.model.OperationBuilderResponse;
+import edu.akarimin.esutils.model.OperationBuilderResponse;
 
 /**
- * Created by akarimin on 10/23/17.
+ * @author akarimin on 10/23/17.
  */
 public class FlowDecider {
 
 
     public static void flowOperations() throws Exception {
 
-        OperationBuilderResponse decider = OperationBuilder.initialize()
+        OperationBuilderResponse decider = OperationBuilder.prepareNode()
                 .setEsServer()
                 .then()
                 .setEsPort()
@@ -21,6 +20,7 @@ public class FlowDecider {
                 .setEsIndex()
                 .then()
                 .displayConfig()
+                .then()
                 .decide();
 
         switch (decider.getOperation().keySet().iterator().next()) {

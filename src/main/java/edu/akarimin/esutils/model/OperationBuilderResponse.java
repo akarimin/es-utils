@@ -1,9 +1,9 @@
-package ir.hafiz.esutils.model;
+package edu.akarimin.esutils.model;
 
 import java.util.Map;
 
 /**
- * Created by akarimin on 10/23/17.
+ * @author akarimin on 10/23/17.
  */
 public class OperationBuilderResponse {
 

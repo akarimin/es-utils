@@ -1,7 +1,7 @@
-package ir.hafiz.esutils.commons;
+package edu.akarimin.esutils.tools;
 
-import ir.hafiz.esutils.model.OperationBuilderResponse;
-import ir.hafiz.esutils.model.Operations;
+import edu.akarimin.esutils.model.OperationBuilderResponse;
+import edu.akarimin.esutils.model.Operations;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
 import org.elasticsearch.cluster.health.ClusterHealthStatus;
 import java.util.HashMap;
@@ -10,20 +10,20 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
-import static ir.hafiz.esutils.commons.ESConnector.getClient;
+import static edu.akarimin.esutils.commons.ESConnector.getClient;
 
 /**
- * Created by akarimin on 10/23/17.
+ * @author akarimin on 10/23/17.
  */
 public final class OperationBuilder {
 
     private static OperationBuilder INSTANCE = new OperationBuilder();
-    private static String ES_SERVER = System.getProperty("hafiz.ibank.elastic.host");
-    private static String ES_PORT = System.getProperty("hafiz.ibank.elastic.port");
-    static String ES_CLUSTER = System.getProperty("hafiz.ibank.elastic.cluster");
-    private static String ES_INDEX = System.getProperty("hafiz.ibank.elastic.index");
+    private static String ES_SERVER = System.getProperty("elastic.host");
+    private static String ES_PORT = System.getProperty("elastic.port");
+    private static String ES_CLUSTER = System.getProperty("elastic.cluster");
+    private static String ES_INDEX = System.getProperty("elastic.index");
 
-    public static OperationBuilder initialize() {
+    public static OperationBuilder prepareNode() {
         return INSTANCE;
     }
 
@@ -40,6 +40,8 @@ public final class OperationBuilder {
     }
 
     public String getEsServer() throws Exception {
+        if(Objects.isNull(ES_SERVER))
+            setEsServer();
         return ES_SERVER;
     }
 
@@ -66,6 +68,8 @@ public final class OperationBuilder {
     }
 
     public String getEsIndex() throws Exception {
+        if(Objects.isNull(ES_INDEX))
+            setEsIndex();
         return ES_INDEX;
     }
 
@@ -111,6 +115,8 @@ public final class OperationBuilder {
     }
 
     public String getClusterName() throws Exception {
+        if(Objects.isNull(ES_CLUSTER))
+            checkNodeStatus();
         return ES_CLUSTER;
     }
 
