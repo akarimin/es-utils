@@ -1,9 +1,9 @@
-package ir.hafiz.esutils.model;
+package edu.akarimin.esutils.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
- * Created by amir amirhoshangi@gmail.com
+ * Created by akarimin
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class AbstractModel {

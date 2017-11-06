@@ -1,4 +1,4 @@
-package ir.hafiz.esutils.model;
+package edu.akarimin.esutils.model;
 
 import java.util.Map;
 

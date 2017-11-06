@@ -1,4 +1,4 @@
-package ir.hafiz.esutils.commons;
+package edu.akarimin.esutils.commons;
 
 import java.util.Scanner;
 
@@ -9,7 +9,7 @@ public final class ScannerUtil {
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    public static Object fetchconsoleInput(String title, String preInputMessage) {
+    public static Object fetchConsoleInput(String title, String preInputMessage) {
         System.out.println("#######################################---" + title + "---#####################################\n" +
                 preInputMessage);
         return SCANNER.nextLine();

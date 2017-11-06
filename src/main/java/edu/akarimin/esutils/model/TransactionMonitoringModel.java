@@ -1,10 +1,10 @@
-package ir.hafiz.esutils.model;
+package edu.akarimin.esutils.model;
 
 
 import java.math.BigDecimal;
 
 /**
- * Created by khosro on 6/19/16.
+ * Created by akarimin on 6/19/16.
  */
 public class TransactionMonitoringModel extends AbstractModel {
   private String channelNumber;

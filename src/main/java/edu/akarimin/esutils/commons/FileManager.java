@@ -1,4 +1,4 @@
-package ir.hafiz.esutils.commons;
+package edu.akarimin.esutils.commons;
 
 import java.io.IOException;
 import java.nio.file.Files;

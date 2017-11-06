@@ -1,7 +1,7 @@
-package ir.hafiz.esutils.tools;
+package edu.akarimin.esutils.tools;
 
-import ir.hafiz.esutils.commons.OperationBuilder;
-import ir.hafiz.esutils.model.OperationBuilderResponse;
+import edu.akarimin.esutils.commons.OperationBuilder;
+import edu.akarimin.esutils.model.OperationBuilderResponse;
 
 /**
  * Created by akarimin on 10/23/17.
@@ -26,14 +26,18 @@ public class FlowDecider {
         switch (decider.getOperation().keySet().iterator().next()) {
             case 0:
                 ESOperations.prepareOperation()
-                        .getMappingOrSelfReindex()
                         .then()
-                        .unequalNameReindex()
+                        .getMapping()
                         .then()
-                        .indexTransaction()
+                        .reindex()
                         .done();
                 //TODO: Ask for Deleting Index
                 break;
+            case 1:
+                ESOperations.prepareOperation()
+                        .then()
+                        .selfReindex()
+                        .done();
             default:
                 break;
 

@@ -1,7 +1,7 @@
-package ir.hafiz.esutils.commons;
+package edu.akarimin.esutils.commons;
 
-import ir.hafiz.esutils.model.OperationBuilderResponse;
-import ir.hafiz.esutils.model.Operations;
+import edu.akarimin.esutils.model.OperationBuilderResponse;
+import edu.akarimin.esutils.model.Operations;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
 import org.elasticsearch.client.transport.NoNodeAvailableException;
 import org.elasticsearch.cluster.health.ClusterHealthStatus;
@@ -12,25 +12,23 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
-import static ir.hafiz.esutils.commons.ESConnector.getClient;
-
 /**
  * Created by akarimin on 10/23/17.
  */
 public final class OperationBuilder {
 
     private static OperationBuilder INSTANCE = new OperationBuilder();
-    private static String ES_SERVER = System.getProperty("hafiz.ibank.elastic.host");
-    private static String ES_PORT = System.getProperty("hafiz.ibank.elastic.port");
-    private static String ES_CLUSTER = System.getProperty("hafiz.ibank.elastic.cluster");
-    private static String ES_INDEX = System.getProperty("hafiz.ibank.elastic.index");
+    private static String ES_SERVER = System.getProperty("elastic.host");
+    private static String ES_PORT = System.getProperty("elastic.port");
+    private static String ES_CLUSTER = System.getProperty("elastic.cluster");
+    private static String ES_INDEX = System.getProperty("elastic.index");
 
     public static OperationBuilder prepareNode() {
         return INSTANCE;
     }
 
     public String[] fetchIndexNames() throws Exception {
-        return getClient()
+        return ESConnector.getClient()
                 .admin()
                 .cluster()
                 .prepareState()
@@ -46,7 +44,7 @@ public final class OperationBuilder {
     }
 
     public OperationBuilder setEsServer() throws Exception {
-        ES_SERVER = (String) ScannerUtil.fetchconsoleInput("HOST", "Please enter your Elasticsearch host:\t");
+        ES_SERVER = (String) ScannerUtil.fetchConsoleInput("HOST", "Please enter your Elasticsearch host:\t");
         return this;
     }
 
@@ -57,7 +55,7 @@ public final class OperationBuilder {
     }
 
     public OperationBuilder setEsPort() {
-        ES_PORT = (String) ScannerUtil.fetchconsoleInput("PORT", "Please enter your Elasticsearch port:\t");
+        ES_PORT = (String) ScannerUtil.fetchConsoleInput("PORT", "Please enter your Elasticsearch port:\t");
         return this;
     }
 
@@ -72,11 +70,11 @@ public final class OperationBuilder {
                 .forEach(i -> System.out.println("[" + i + "] : [" + indices[i] + "]"));
         int indexNum = 0;
 
-        indexNum = Integer.valueOf((String) ScannerUtil.fetchconsoleInput("",
+        indexNum = Integer.valueOf((String) ScannerUtil.fetchConsoleInput("NUM",
                 "Please enter your Elasticsearch index NUMBER:\t"));
 
         if (indexNum < 0 || indexNum > indices.length) {
-            indexNum = Integer.valueOf((String) ScannerUtil.fetchconsoleInput("",
+            indexNum = Integer.valueOf((String) ScannerUtil.fetchConsoleInput("NUM",
                     "Number out of range. Please enter your Elasticsearch index NUMBER:\t"));
             if (indexNum < 0 || indexNum > indices.length) {
                 System.exit(1);
@@ -88,7 +86,7 @@ public final class OperationBuilder {
 
     public OperationBuilder checkNodeStatus() throws Exception {
         try {
-            ClusterHealthResponse healths = getClient()
+            ClusterHealthResponse healths = ESConnector.getClient()
                     .admin()
                     .cluster()
                     .prepareHealth()
@@ -115,7 +113,7 @@ public final class OperationBuilder {
     }
 
     public OperationBuilder displayConfig() {
-        System.out.printf("###################################---CONFIG---#########################################\n" +
+        System.out.printf("###################################---CONFIG---######################################\n" +
                         "----------------------------------------------------------------------------------------\n" +
                         "ELASTICSEARCH NODE WITH HOST: [%s] PORT: [%s] CLUSTER NAME: [%s] INDEX: [%s] SELECTED.\n" +
                         "----------------------------------------------------------------------------------------\n",
@@ -129,8 +127,7 @@ public final class OperationBuilder {
                 .forEach(i -> System.out.printf("[%d] : [%s]\n", i, Operations.values()[i]));
         OperationBuilderResponse response = new OperationBuilderResponse();
         Map<Integer, String> decision = new HashMap<>(1);
-        Scanner scanner = new Scanner(System.in);
-        int operationId = scanner.nextInt();
+        int operationId = Integer.valueOf((String) ScannerUtil.fetchConsoleInput("", ""));
         decision.put(operationId, Operations.values()[operationId].toString());
         response.setOperation(decision);
         return response;
