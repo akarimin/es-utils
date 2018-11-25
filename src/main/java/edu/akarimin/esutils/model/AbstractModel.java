@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * Created by akarimin
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class AbstractModel {
-
+abstract class AbstractModel {
 
 }

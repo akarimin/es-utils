@@ -1,163 +1,150 @@
 package edu.akarimin.esutils.model;
 
-
 import java.math.BigDecimal;
 
 /**
  * Created by akarimin on 6/19/16.
  */
 public class TransactionMonitoringModel extends AbstractModel {
-  private String channelNumber;
-  private String sessionId;
-  private String transactionType;
-  private String transactionState;
-  private Short connectionType = 2;
-  private String cif;
-  private BigDecimal amount;
-  private String IP;
-  private String errorDescription;
-  private String OSType;
-  private Long yaghutSentDate;
-  private Long yaghutReceivedDate;
-  private Long transactionDate;
-  private String passwordType;
-  private String username;
-  private String fullName;
-  private long yaghutCallDuration;
 
-  public String getChannelNumber() {
-    return channelNumber;
-  }
+	private String channelNumber;
 
-  public void setChannelNumber(String channelNumber) {
-    this.channelNumber = channelNumber;
-  }
+	private String sessionId;
 
-  public String getSessionId() {
-    return sessionId;
-  }
+	private String transactionType;
 
-  public void setSessionId(String sessionId) {
-    this.sessionId = sessionId;
-  }
+	private String transactionState;
 
-  public String getTransactionType() {
-    return transactionType;
-  }
+	private Short connectionType = 2;
 
-  public void setTransactionType(String transactionType) {
-    this.transactionType = transactionType;
-  }
+	private String cif;
 
-  public String getTransactionState() {
-    return transactionState;
-  }
+	private BigDecimal amount;
 
-  public void setTransactionState(String transactionState) {
-    this.transactionState = transactionState;
-  }
+	private String IP;
 
-  public Short getConnectionType() {
-    return connectionType;
-  }
+	private String errorDescription;
 
-  public void setConnectionType(Short connectionType) {
-    this.connectionType = connectionType;
-  }
+	private String OSType;
 
-  public String getCif() {
-    return cif;
-  }
+	private Long transactionDate;
 
-  public void setCif(String cif) {
-    this.cif = cif;
-  }
+	private String passwordType;
 
-  public BigDecimal getAmount() {
-    return amount;
-  }
+	private String username;
 
-  public void setAmount(BigDecimal amount) {
-    this.amount = amount;
-  }
+	private String fullName;
 
-  public String getIP() {
-    return IP;
-  }
+	public String getChannelNumber() {
+		return channelNumber;
+	}
 
-  public void setIP(String IP) {
-    this.IP = IP;
-  }
+	public void setChannelNumber(String channelNumber) {
+		this.channelNumber = channelNumber;
+	}
 
-  public String getErrorDescription() {
-    return errorDescription;
-  }
+	public String getSessionId() {
+		return sessionId;
+	}
 
-  public void setErrorDescription(String errorDescription) {
-    this.errorDescription = errorDescription;
-  }
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
 
-  public String getOSType() {
-    return OSType;
-  }
+	public String getTransactionType() {
+		return transactionType;
+	}
 
-  public void setOSType(String OSType) {
-    this.OSType = OSType;
-  }
+	public void setTransactionType(String transactionType) {
+		this.transactionType = transactionType;
+	}
 
-  public Long getYaghutSentDate() {
-    return yaghutSentDate;
-  }
+	public String getTransactionState() {
+		return transactionState;
+	}
 
-  public void setYaghutSentDate(Long yaghutSentDate) {
-    this.yaghutSentDate = yaghutSentDate;
-  }
+	public void setTransactionState(String transactionState) {
+		this.transactionState = transactionState;
+	}
 
-  public Long getYaghutReceivedDate() {
-    return yaghutReceivedDate;
-  }
+	public Short getConnectionType() {
+		return connectionType;
+	}
 
-  public void setYaghutReceivedDate(Long yaghutReceivedDate) {
-    this.yaghutReceivedDate = yaghutReceivedDate;
-  }
+	public void setConnectionType(Short connectionType) {
+		this.connectionType = connectionType;
+	}
 
-  public Long getTransactionDate() {
-    return transactionDate;
-  }
+	public String getCif() {
+		return cif;
+	}
 
-  public void setTransactionDate(Long transactionDate) {
-    this.transactionDate = transactionDate;
-  }
+	public void setCif(String cif) {
+		this.cif = cif;
+	}
 
-  public String getPasswordType() {
-    return passwordType;
-  }
+	public BigDecimal getAmount() {
+		return amount;
+	}
 
-  public void setPasswordType(String passwordType) {
-    this.passwordType = passwordType;
-  }
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
 
-  public String getUsername() {
-    return username;
-  }
+	public String getIP() {
+		return IP;
+	}
 
-  public void setUsername(String username) {
-    this.username = username;
-  }
+	public void setIP(String IP) {
+		this.IP = IP;
+	}
 
-  public String getFullName() {
-    return fullName;
-  }
+	public String getErrorDescription() {
+		return errorDescription;
+	}
 
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
+	public void setErrorDescription(String errorDescription) {
+		this.errorDescription = errorDescription;
+	}
 
-  public long getYaghutCallDuration() {
-    return yaghutCallDuration;
-  }
+	public String getOSType() {
+		return OSType;
+	}
 
-  public void setYaghutCallDuration(long yaghutCallDuration) {
-    this.yaghutCallDuration = yaghutCallDuration;
-  }
+	public void setOSType(String OSType) {
+		this.OSType = OSType;
+	}
+
+	public Long getTransactionDate() {
+		return transactionDate;
+	}
+
+	public void setTransactionDate(Long transactionDate) {
+		this.transactionDate = transactionDate;
+	}
+
+	public String getPasswordType() {
+		return passwordType;
+	}
+
+	public void setPasswordType(String passwordType) {
+		this.passwordType = passwordType;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
 }

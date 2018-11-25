@@ -23,9 +23,6 @@
         </triggeringPolicy>
     </appender>
     <logger name="edu.akarimin.esutils" level="ERROR" additivity="false">
-        <!--<appender-ref ref="ES"/>-->
-        <!--<appender-ref ref="FILE"/>-->
-       <!-- <appender-ref ref="CONSOLE"/>-->
     </logger>
 
 
@@ -34,6 +31,5 @@
     -->
   <root level="ERROR">
     <appender-ref ref="FILE"/>
-    <!--<appender-ref ref="CONSOLE"/>-->
   </root>
 </configuration>

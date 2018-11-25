@@ -8,27 +8,29 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 /**
- * Created by amir amirhoshangi@gmail.com
+ * Created by akarimin@buffalo.edu
  */
+
 public class JacksonMapperConfig {
 
-  private JacksonMapperConfig() {
+	private JacksonMapperConfig() {
 
-  }
+	}
 
-  public static final ObjectMapper objectMapper = new ObjectMapper();
+	public static final ObjectMapper objectMapper = new ObjectMapper();
 
-  static {
+	static {
 
-    objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-    objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    objectMapper.setDateFormat(dateFormat);
+		objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		objectMapper.setDateFormat(dateFormat);
 
-  }
+	}
 
-  public static ObjectMapper getObjectMapper() {
-    return objectMapper;
-  }
+	public static ObjectMapper getObjectMapper() {
+		return objectMapper;
+	}
+
 }

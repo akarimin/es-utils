@@ -7,13 +7,14 @@ import java.util.Map;
  */
 public class OperationBuilderResponse {
 
-    private Map<Integer, String> operation;
+	private Map<Integer, String> operation;
 
-    public Map<Integer, String> getOperation() {
-        return operation;
-    }
+	public Map<Integer, String> getOperation() {
+		return operation;
+	}
 
-    public void setOperation(Map<Integer, String> operation) {
-        this.operation = operation;
-    }
+	public void setOperation(Map<Integer, String> operation) {
+		this.operation = operation;
+	}
+
 }
