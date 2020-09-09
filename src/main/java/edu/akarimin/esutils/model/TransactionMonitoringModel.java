@@ -8,31 +8,18 @@ import java.math.BigDecimal;
 public class TransactionMonitoringModel extends AbstractModel {
 
 	private String channelNumber;
-
 	private String sessionId;
-
 	private String transactionType;
-
 	private String transactionState;
-
 	private Short connectionType = 2;
-
 	private String cif;
-
 	private BigDecimal amount;
-
-	private String IP;
-
+	private String ip;
 	private String errorDescription;
-
-	private String OSType;
-
+	private String osType;
 	private Long transactionDate;
-
 	private String passwordType;
-
 	private String username;
-
 	private String fullName;
 
 	public String getChannelNumber() {
@@ -91,12 +78,12 @@ public class TransactionMonitoringModel extends AbstractModel {
 		this.amount = amount;
 	}
 
-	public String getIP() {
-		return IP;
+	public String getIp() {
+		return ip;
 	}
 
-	public void setIP(String IP) {
-		this.IP = IP;
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 
 	public String getErrorDescription() {
@@ -107,12 +94,12 @@ public class TransactionMonitoringModel extends AbstractModel {
 		this.errorDescription = errorDescription;
 	}
 
-	public String getOSType() {
-		return OSType;
+	public String getOsType() {
+		return osType;
 	}
 
-	public void setOSType(String OSType) {
-		this.OSType = OSType;
+	public void setOsType(String osType) {
+		this.osType = osType;
 	}
 
 	public Long getTransactionDate() {

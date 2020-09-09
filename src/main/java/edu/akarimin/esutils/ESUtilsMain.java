@@ -1,8 +1,9 @@
 package edu.akarimin.esutils;
 
 import edu.akarimin.esutils.tools.FlowDecider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -11,14 +12,14 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @SpringBootApplication
 @ComponentScan("edu")
-@EnableAutoConfiguration
 public class ESUtilsMain {
 
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(new Object[] { ESUtilsMain.class }, args);
-		FlowDecider.flowOperations();
-		System.out.println(
-				"---------------------------------------END OF MAIN--------------------------------------");
-	}
+    private static final Logger LOGGER = LoggerFactory.getLogger(ESUtilsMain.class);
+
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(new Object[]{ESUtilsMain.class}, args);
+        FlowDecider.flowOperations();
+        LOGGER.debug("---------------------------------------END OF MAIN--------------------------------------");
+    }
 
 }

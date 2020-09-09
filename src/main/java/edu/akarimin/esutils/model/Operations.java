@@ -5,6 +5,10 @@ package edu.akarimin.esutils.model;
  */
 public enum Operations {
 
-	REINDEX, SELF_REINDEX, DUMP, IMPORT_FROM_FILE, PARTIAL_MAPPING_UPDATE
+	REINDEX,
+	SELF_REINDEX,
+	DUMP,
+	IMPORT_FROM_FILE,
+	PARTIAL_MAPPING_UPDATE
 
 }
