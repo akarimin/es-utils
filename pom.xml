@@ -14,7 +14,7 @@
         <spring.boot.version>1.4.2.RELEASE</spring.boot.version>
         <spring.version>4.3.4.RELEASE</spring.version>
         <log4j>2.13.3</log4j>
-        <jackson.version>2.11.2</jackson.version>
+        <jackson.version>2.12.6.1</jackson.version>
         <junit-version>4.13.1</junit-version>
         <elasticsearch.version>5.2.2</elasticsearch.version>
         <elasticsearch-dataformat>5.6.1</elasticsearch-dataformat>
